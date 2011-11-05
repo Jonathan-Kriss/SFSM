@@ -12,6 +12,14 @@ class state:
         print "remove transition: " + transitionName
         self.transitions.pop(transitionName)
     
+    def getTransisitionDestination(self,tName):
+        if tName in self.transitions:
+            return self.transitions[tName]
+        return "Invalid Transition"
+        
+    def isValidTransition(self,tName):
+        return tName in self.transitions
+    
     def toString(self):
         for key, value in self.transitions.items():
             print key, value
@@ -26,21 +34,20 @@ class FSM:
         self.states[stateName] = state(stateName)
     
     def removeState(self,stateName):
-        for currentState in self.states:
-            if currentState == stateName:
-                self.states.remove(currentState)
+        for iterState in self.states:
+            if iterState == stateName:
+                self.states.remove(iterState)
     
-    def addTransition(self,fromState,toState,transitionName):
-        if fromState in self.states:
-            
-            
+    def addTransition(self,transitionName,fromState,toState):
+        if fromState in self.states and toState in self.states:
+            self.states[fromState].addTransition(transitionName,toState)
         
-    def doAction(self,transitionName):
-        
-            
-    
+    def doAction(self,tName):
+        for iterState in self.states.values():
+            if iterState.isValidTransition(tName):
+                self.currentState = iterState.getTransitionDestination(tName) 
+                
+                
+                      
 
-
     
-        
-      
