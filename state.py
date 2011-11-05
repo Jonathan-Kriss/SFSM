@@ -45,9 +45,34 @@ class FSM:
     def doAction(self,tName):
         for iterState in self.states.values():
             if iterState.isValidTransition(tName):
-                self.currentState = iterState.getTransitionDestination(tName) 
+                self.currentState = iterState.getTransitionDestination(tName)
+        
+    def setStartState(self,stateName):
+        if stateName in self.states.keys():
+            self.currentState = stateName
+                
+JonsFSM = FSM()
+JonsFSM.addState("state1")
+JonsFSM.addState("state2")
+JonsFSM.addState("state3")
+JonsFSM.addTransition("s1tos2", "state1", "state2")
+JonsFSM.addTransition("s1tos3", "state1", "state3")
+JonsFSM.addTransition("s2tos3", "state2", "state3")
+JonsFSM.addTransition("s3tos2", "state3", "state2")
+
+JonsFSM.setStartState("state1")
+JonsFSM.doAction("s1tos3")
+JonsFSM.doAction("s3tos2")
+
                 
                 
+#maybe make transitions doubly linked to allow deleteing faster
+
+
+
+
+
+
                       
 
     
